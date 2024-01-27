@@ -1,6 +1,7 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import GUI from 'lil-gui'
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js'
 
 /**
  * Base
@@ -22,38 +23,46 @@ const scene = new THREE.Scene()
 
 // const ambientLight = new THREE.AmbientLight()
 // ambientLight.color = new THREE.Color('white')
-// ambientLight.intensity = 0.5
+// ambientLight.intensity = 0.05
 
 // scene.add(ambientLight)
 
 // const debug_ambientLight = gui.addFolder('ambientLight')
 // debug_ambientLight.add(ambientLight, 'intensity').min(0).max(4).step(0.001)
 // debug_ambientLight.addColor(ambientLight, 'color')
+// debug_ambientLight.close()
 
 // 2. DIRECTIONAL LIGHT
 
-// const directionalLight = new THREE.DirectionalLight()
-// directionalLight.color = new THREE.Color('green')
-// directionalLight.intensity = 4
-// directionalLight.position.x = -4
-// directionalLight.position.y = 10
-// directionalLight.position.z = 2.8
+const directionalLight = new THREE.DirectionalLight()
+directionalLight.color = new THREE.Color('red')
+directionalLight.intensity = 4
+directionalLight.position.x = 0
+directionalLight.position.y = 1
+directionalLight.position.z = 0
 
-// scene.add(directionalLight)
+scene.add(directionalLight)
 
-// const debug_directionalLight = gui.addFolder('directionalLight')
-// debug_directionalLight.add(directionalLight, 'intensity').min(0).max(4).step(0.001)
-// debug_directionalLight.addColor(directionalLight, 'color')
-// debug_directionalLight.add(directionalLight.position, 'x').min(-10).max(10).step(0.001)
-// debug_directionalLight.add(directionalLight.position, 'y').min(-10).max(10).step(0.001)
-// debug_directionalLight.add(directionalLight.position, 'z').min(-10).max(10).step(0.001)
+const debug_directionalLight = gui.addFolder('directionalLight')
+debug_directionalLight.add(directionalLight, 'intensity').min(0).max(4).step(0.001)
+debug_directionalLight.addColor(directionalLight, 'color')
+debug_directionalLight.add(directionalLight.position, 'x').min(-10).max(10).step(0.001)
+debug_directionalLight.add(directionalLight.position, 'y').min(-10).max(10).step(0.001)
+debug_directionalLight.add(directionalLight.position, 'z').min(-10).max(10).step(0.001)
+debug_directionalLight.close()
+
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2)
+scene.add(directionalLightHelper)
 
 // 3. HEMISPHERE LIGHT
 
 const hemisphereLight = new THREE.HemisphereLight()
 hemisphereLight.color = new THREE.Color('#ae00ff')
 hemisphereLight.groundColor = new THREE.Color('#002aff')
-hemisphereLight.intensity = 0
+hemisphereLight.intensity = 0.5
+hemisphereLight.position.x = 1
+hemisphereLight.position.y = 1
+hemisphereLight.position.z = 0
 
 scene.add(hemisphereLight)
 
@@ -61,19 +70,24 @@ const debug_hemisphereLight = gui.addFolder('hemisphereLight')
 debug_hemisphereLight.addColor(hemisphereLight, 'color')
 debug_hemisphereLight.addColor(hemisphereLight, 'groundColor')
 debug_hemisphereLight.add(hemisphereLight, 'intensity').min(0).max(4).step(0.001)
-
+debug_hemisphereLight.add(hemisphereLight.position, 'x').min(-10).max(10).step(0.001)
+debug_hemisphereLight.add(hemisphereLight.position, 'y').min(-10).max(10).step(0.001)
+debug_hemisphereLight.add(hemisphereLight.position, 'z').min(-10).max(10).step(0.001)
 debug_hemisphereLight.close()
+
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2)
+scene.add(hemisphereLightHelper)
 
 // 4. POINT LIGHT
 
 const pointLight = new THREE.PointLight()
 pointLight.color = new THREE.Color('yellow')
-pointLight.intensity = 3
+pointLight.intensity = 4
 pointLight.distance = 8.5
 pointLight.decay = 2
 pointLight.position.x = 2
-pointLight.position.y = 3
-pointLight.position.z = 4
+pointLight.position.y = 1
+pointLight.position.z = 0
 
 scene.add(pointLight)
 
@@ -85,8 +99,10 @@ debug_pointLight.add(pointLight.position, 'y').min(-10).max(10).step(0.001)
 debug_pointLight.add(pointLight.position, 'z').min(-10).max(10).step(0.001)
 debug_pointLight.add(pointLight, 'distance').min(0).max(40).step(0.001)
 debug_pointLight.add(pointLight, 'decay').min(0).max(4).step(0.001)
-
 debug_pointLight.close()
+
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2)
+scene.add(pointLightHelper)
 
 // 5. RECT AREA LIGHT
 
@@ -101,11 +117,11 @@ const rectAreaLight = new THREE.RectAreaLight('blue', 2, 1, 1)
 rectAreaLight.color = new THREE.Color('blue')
 rectAreaLight.intensity = 2
 rectAreaLight.height = 1
-rectAreaLight.width = 1
+rectAreaLight.width = 5
 
-rectAreaLight.position.x = -1.5
-rectAreaLight.position.y = 1
-rectAreaLight.position.z = 1.5
+rectAreaLight.position.x = 0
+rectAreaLight.position.y = -0.5
+rectAreaLight.position.z = 0
 
 scene.add(rectAreaLight)
 
@@ -117,8 +133,10 @@ debug_rectAreaLight.add(rectAreaLight, 'width').min(0).max(4).step(0.001)
 debug_rectAreaLight.add(rectAreaLight.position, 'x').min(-10).max(10).step(0.001)
 debug_rectAreaLight.add(rectAreaLight.position, 'y').min(-10).max(10).step(0.001)
 debug_rectAreaLight.add(rectAreaLight.position, 'z').min(-10).max(10).step(0.001)
-
 debug_rectAreaLight.close()
+
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight)
+scene.add(rectAreaLightHelper)
 
 // 6. SPOT LIGHT
 
@@ -165,6 +183,10 @@ debug_spotLight.add(spotLight.position, 'z').min(-10).max(10).step(0.001)
 debug_spotLight.add(spotLight.target.position, 'x').min(-10).max(10).step(0.001)
 debug_spotLight.add(spotLight.target.position, 'y').min(-10).max(10).step(0.001)
 debug_spotLight.add(spotLight.target.position, 'z').min(-10).max(10).step(0.001)
+debug_spotLight.close()
+
+const spotLightHelper = new THREE.SpotLightHelper(spotLight, 'red')
+scene.add(spotLightHelper)
 
 /**
  * Objects

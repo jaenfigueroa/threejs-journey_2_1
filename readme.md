@@ -1,16 +1,34 @@
-# Three.js Journey
+# Three.js Journey -> Lights
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+## Tareas realizadas
 
-``` bash
-# Install dependencies (only the first time)
-npm install
+## 1. Tipos de luces
 
-# Run the local server at localhost:8080
-npm run dev
+1. AmbientLight
 
-# Build for production in the dist/ directory
-npm run build
-```
+2. DirectionalLight
+
+3. HemisphereLight
+
+4. PointLight (Punto de luz)
+
+5. RectAreaLight (luces de fotografia, rectangulo)
+
+6. SpotLight (linterna)
+
+### 2. Performance
+
+### Luces de coste menor
+
+- AmbientLight
+- HemisphereLight
+
+### Luces de coste moderado
+
+- DIrectionalLight
+- PointLight
+
+### Luces de coste mayor
+
+- SpotLight
+- RectAreaLight
